@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-		return 'hello works!';
-    #return view('welcome');
+		return 'index page';
 });
+
+Route::get('/doctor/login', function () {
+		return View::make('doctor.doctor_login');
+});
+
+Route::post('/doctor/login','DoctorController@login');
 ?>

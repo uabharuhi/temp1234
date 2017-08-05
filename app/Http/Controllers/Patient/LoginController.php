@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Doctor;
+namespace App\Http\Controllers\Patient;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,7 @@ use Auth;
 
 class LoginController extends Controller
 {
-   protected $redirectTo = '/doctor/login';
+   protected $redirectTo = '/patient/login';
     use AuthenticatesUsers; //trait
     //                                inject
 
@@ -25,12 +25,12 @@ class LoginController extends Controller
       ]);
 
 
-      $res = Auth::guard('doctor')->attempt(
+      $res = Auth::guard('patient')->attempt(
         ['ssn' => $request->ssn,'password'=>$request->password]
       );
 
       if ($res) {
-        return redirect()->intended('/doctor/home');
+        return redirect()->intended('/patient/home');
       }
       #login failed
       $request->session()->flash('login_failed', 'login failed, ssn/password wrong!');
@@ -40,7 +40,7 @@ class LoginController extends Controller
     }
 
     public function showLoginForm(){
-      return View::make('doctor.doctor_login');
+      return View::make('patient.patient_login');
     }
 
 
@@ -51,12 +51,12 @@ class LoginController extends Controller
 
     protected function guard()
     {
-        return Auth::guard('doctor');
+        return Auth::guard('patient');
     }
 
     public function logout()
     {
-        Auth::guard('doctor')->logout();
+        Auth::guard('patient')->logout();
         // if look to  AuthenticatesUsers.logout , they clear reqeust session
         //  but in this context we need only to logout doctor part
         // if a user uses browser log as both patient and doctor

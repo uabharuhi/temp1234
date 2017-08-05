@@ -9,7 +9,6 @@
 <link href="" rel="stylesheet">
 </head>
 <body>
-Doctor XXXXXX
-this is home ,{{ Auth::guard('doctor')->user()->name}}
+this is patient home ,{{ Auth::guard('patient')->user()->name}}
 </body>
 </html>

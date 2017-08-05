@@ -23,3 +23,14 @@ Route::group( ['middleware' => 'auth_doctor'], function() {
   Route::get('/doctor/home','Doctor\DoctorController@home' );
 } );
 
+
+Route::get('/patient/login','Patient\LoginController@showLoginForm' );
+Route::post('/patient/login','Patient\LoginController@login');
+
+
+Route::group( ['middleware' => 'auth_patient'], function() {
+  Route::get('/patient/logout','Patient\LoginController@logout' );
+  Route::get('/patient/home','Patient\PatientController@home' );
+} );
+
+

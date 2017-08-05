@@ -49,6 +49,16 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
+
+         'patient'=> [
+            'driver' => 'session',
+            'provider' => 'patients',
+        ],
+
+        'patient_api'=> [
+            'driver' => 'token',
+            'provider' => 'patients',
+        ],
     ],
 
     /*
@@ -72,6 +82,11 @@ return [
         'doctors' => [
             'driver' => 'eloquent',
             'model' => App\Doctor::class,
+        ],
+
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => App\Patient::class,
         ],
 
          'users' => [

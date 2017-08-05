@@ -24,8 +24,8 @@
       <p class="">{{ Session::get('login_failed') }} </p>
       @endif
 </div> <!-- end .flash-message -->
-Doctor Login
-{!! Form::open(["url"=>"/doctor/login", "method"=>"post"] ) !!}
+This is patient login
+{!! Form::open(["url"=>"/patient/login", "method"=>"post"] ) !!}
 ssn:<br>
   <input type="text" name="ssn" value="{{ old('ssn') }}">
   <br>

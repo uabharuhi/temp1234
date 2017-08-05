@@ -15,9 +15,11 @@ Route::get('/', function () {
 		return 'index page';
 });
 
-Route::get('/doctor/login', function () {
-		return View::make('doctor.doctor_login');
-});
+Route::get('/doctor/login','Doctor\LoginController@showLoginForm' );
+Route::post('/doctor/login','Doctor\LoginController@login');
 
-Route::post('/doctor/login','DoctorController@login');
-?>
+Route::group( ['middleware' => 'auth_doctor'], function() {
+  Route::get('/doctor/logout','Doctor\LoginController@logout' );
+  Route::get('/doctor/home','Doctor\DoctorController@home' );
+} );
+

@@ -16,13 +16,10 @@ class AuthDoctor
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guard()->check()) {
-            return redirect('/');
-        }
 
         if (!Auth::guard('doctor')->check()) {
             $request->session()->flash('login_failed', 'you must login first');
-            return redirect('/doctor/login');
+            return redirect()->guest('/doctor/login');
         }
 
         return $next($request);

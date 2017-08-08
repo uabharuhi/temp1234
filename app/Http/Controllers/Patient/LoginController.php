@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 //Class needed for login and Logout logic
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 use Auth;
 
@@ -18,22 +20,27 @@ class LoginController extends Controller
     //                                inject
 
     public function login(Request $request){
+      #qwrwq
+
 
       $this->validate($request,[
          'ssn' => 'required',
          'password'  => 'required'
       ]);
 
-
       $res = Auth::guard('patient')->attempt(
         ['ssn' => $request->ssn,'password'=>$request->password]
       );
 
       if ($res) {
+        $intended_url = Session::get('url.intended', url('/'));
+        Log::debug($intended_url);
+        Log::debug('Login Successful');
         return redirect()->intended('/patient/home');
       }
+       Log::debug('Login GG');
       #login failed
-      $request->session()->flash('login_failed', 'login failed, ssn/password wrong!');
+      $request->session()->flash('login_failed', ' patient .. login failed, ssn/password wrong!');
 
       return redirect()->back()->withInput($request->only('ssn'));
 

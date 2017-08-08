@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Patient;
 
-use App\User;
+use App\Patient;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -27,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/patient/home';
 
     /**
      * Create a new controller instance.
@@ -36,7 +42,41 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        # check whether ssn repeat
+
+        $ssn = $request->input('ssn');
+        $count =    Patient::where('ssn', $ssn)->count();
+
+
+        if ($count>0) {
+
+            return redirect()->back()->withInput( $request->except( ['ssn'] ) );
+        }
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        # $request->session()->flash('register_failed', "$ssn   has exist , use anohter!");
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('patient.register');
+    }
+
+    protected function guard()
+    {
+        return Auth::guard('patient');
     }
 
     /**
@@ -48,9 +88,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'ssn' => 'required|string|max:16',
+            'name' => 'required|string|max:16',
+            'password' => 'required|string|max:255',
         ]);
     }
 
@@ -62,9 +102,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return Patient::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'ssn' => $data['ssn'],
             'password' => bcrypt($data['password']),
         ]);
     }

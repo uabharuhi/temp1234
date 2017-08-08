@@ -26,6 +26,7 @@
 </div> <!-- end .flash-message -->
 Doctor Login
 {!! Form::open(["url"=>"/doctor/login", "method"=>"post"] ) !!}
+ {{ csrf_field() }}
 ssn:<br>
   <input type="text" name="ssn" value="{{ old('ssn') }}">
   <br>

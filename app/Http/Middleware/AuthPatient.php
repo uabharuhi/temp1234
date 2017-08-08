@@ -16,13 +16,10 @@ class AuthPatient
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guard()->check()) {
-            return redirect('/');
-        }
 
         if (!Auth::guard('patient')->check()) {
-            $request->session()->flash('login_failed', 'you must login first');
-            return redirect('/patient/login');
+            $request->session()->flash('login_failed', 'patient ..you must login first');
+            return redirect()->guest('/patient/login');
         }
 
         return $next($request);

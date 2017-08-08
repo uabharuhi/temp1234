@@ -15,14 +15,21 @@ Route::get('/', function () {
 		return 'index page';
 });
 
+
+
+
 Route::get('/doctor/login','Doctor\LoginController@showLoginForm' );
 Route::post('/doctor/login','Doctor\LoginController@login');
+
+
 
 Route::group( ['middleware' => 'auth_doctor'], function() {
   Route::get('/doctor/logout','Doctor\LoginController@logout' );
   Route::get('/doctor/home','Doctor\DoctorController@home' );
 } );
 
+Route::get('/patient/register','Patient\RegisterController@showRegistrationForm' );
+Route::post('/patient/register','Patient\RegisterController@register' );
 
 Route::get('/patient/login','Patient\LoginController@showLoginForm' );
 Route::post('/patient/login','Patient\LoginController@login');

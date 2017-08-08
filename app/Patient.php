@@ -9,4 +9,7 @@ class Patient extends Authenticatable
 {
 	protected $table = 'patient';
 	public $timestamps = false;
+      protected $fillable = [
+        'name', 'ssn', 'password',
+    ];
 }

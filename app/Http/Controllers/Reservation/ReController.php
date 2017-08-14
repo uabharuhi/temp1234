@@ -16,7 +16,7 @@ class ReController extends Controller
     //
     public function reserve(Request $request){
         $output = new ConsoleOutput();
-        $output->writeln('1');
+       
         $v = $this->validator($request);
 
         if( $v->fails())
@@ -24,12 +24,12 @@ class ReController extends Controller
             return $v->errors();
         }
         #check date overlap
-        $output->writeln('2');
-        $resvs = Reservation::where('date',$date)->all();
+        
+        $resvs = Reservation::where('date', $request->input('date') )->get();
 
         $hour1 = $request->input('hour1');
         $hour2 = $request->input('hour2');
-        $output->writeln('3');
+        
         foreach ($resvs  as $r) {
             if(($r->hour1<= $hour1 and  $hour1<= $r->hour2) or
                 ($r->hour1<= $hour2 and  $hour2<= $r->hour2)
@@ -41,7 +41,7 @@ class ReController extends Controller
             }
           
         }
-        $output->writeln('4');
+       
         $resv = new Reservation();
 
         

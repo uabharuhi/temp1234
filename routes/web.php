@@ -15,9 +15,13 @@ Route::get('/', function () {
 		return 'index page';
 });
 
+Route::get('/gg', function () {
+		return 'GG , you are faker';
+});
+
 Route::get('/doctor/login', function () {
 		return View::make('doctor.doctor_login');
 });
 
 Route::post('/doctor/login','DoctorController@login');
-?>
+

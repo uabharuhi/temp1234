@@ -16,7 +16,7 @@ class Patient extends Authenticatable  implements AuthenticatableUserContract
      * @var array
      */
     protected $fillable = [
-        'ssn', 'password',
+        'ssn', 'password','name'
     ];
 	
     /**
@@ -40,5 +40,9 @@ class Patient extends Authenticatable  implements AuthenticatableUserContract
                 'id' => $this->id
              ]
         ];
+    }
+
+    public function reservations(){
+        return $this->hasMany('App\Reservation');
     }
 }

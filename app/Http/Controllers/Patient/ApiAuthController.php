@@ -30,6 +30,8 @@ class ApiAuthController extends Controller
         $a = $this->guard()->getUser()->ssn ;
         return "Hi $a";
     }
+
+
     
 	public function login(Request $request)
 	{
@@ -76,5 +78,9 @@ class ApiAuthController extends Controller
 			'message' => 'gg failed login',
 		], 401);
 	}
-	
+
+    public function logout()
+    {
+        $this->guard()->logout(); 
+    }
 }

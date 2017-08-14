@@ -13,11 +13,11 @@ use Auth;
 
 class LoginController extends Controller
 {
-   protected $redirectTo = '/doctor/login';
     use AuthenticatesUsers; //trait
     //                                inject
 
     public function login(Request $request){
+
 
       $this->validate($request,[
          'ssn' => 'required',
@@ -61,7 +61,7 @@ class LoginController extends Controller
         //  but in this context we need only to logout doctor part
         // if a user uses browser log as both patient and doctor
         // it may cause some problem
-        return redirect($this->redirectTo);
+        return redirect('/doctor/login');
     }
 
 

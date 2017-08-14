@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/patient/login', 'Patient\AuthApiController@login');
+
+Route::group([
+    'middleware' => 'auth:patient_api',
+], function () {
+
+    // Authentication Routes...
+    Route::get('/patient/logout', 'Patient\AuthApiController@logout');
+
+    Route::get('/patient/home', 'Patient\AuthApiController@home');
+
+
 });

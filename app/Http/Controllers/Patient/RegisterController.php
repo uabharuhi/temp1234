@@ -49,16 +49,7 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        # check whether ssn repeat
 
-        $ssn = $request->input('ssn');
-        $count =    Patient::where('ssn', $ssn)->count();
-
-
-        if ($count>0) {
-
-            return redirect()->back()->withInput( $request->except( ['ssn'] ) );
-        }
 
         event(new Registered($user = $this->create($request->all())));
 
@@ -88,7 +79,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'ssn' => 'required|string|max:16',
+            'ssn' => 'required|string|max:16|unique:patient',
             'name' => 'required|string|max:16',
             'password' => 'required|string|max:255',
         ]);

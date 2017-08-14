@@ -56,7 +56,7 @@ return [
         ],
 
         'patient_api'=> [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'patients',
         ],
     ],

@@ -17,13 +17,21 @@ Route::get('/', function () {
 
 
 
+Route::get('/gg',function(){
+  return 'gg 3:0';
+});
 
 Route::get('/doctor/login','Doctor\LoginController@showLoginForm' );
 Route::post('/doctor/login','Doctor\LoginController@login');
 
 
 
-Route::group( ['middleware' => 'auth_doctor'], function() {
+Route::group( ['middleware' => 'auth:patient'], function() {
+  Route::get('/patient/logout','Patient\LoginController@logout' );
+  Route::get('/patient/home','Patient\PatientController@home' );
+} );
+
+Route::group( ['middleware' => 'auth:doctor'], function() {
   Route::get('/doctor/logout','Doctor\LoginController@logout' );
   Route::get('/doctor/home','Doctor\DoctorController@home' );
 } );
@@ -35,9 +43,6 @@ Route::get('/patient/login','Patient\LoginController@showLoginForm' );
 Route::post('/patient/login','Patient\LoginController@login');
 
 
-Route::group( ['middleware' => 'auth_patient'], function() {
-  Route::get('/patient/logout','Patient\LoginController@logout' );
-  Route::get('/patient/home','Patient\PatientController@home' );
-} );
+
 
 

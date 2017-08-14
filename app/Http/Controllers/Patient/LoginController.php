@@ -15,12 +15,11 @@ use Auth;
 
 class LoginController extends Controller
 {
-   protected $redirectTo = '/patient/login';
     use AuthenticatesUsers; //trait
     //                                inject
 
     public function login(Request $request){
-      #qwrwq
+
 
 
       $this->validate($request,[
@@ -34,11 +33,10 @@ class LoginController extends Controller
 
       if ($res) {
         $intended_url = Session::get('url.intended', url('/'));
-        Log::debug($intended_url);
-        Log::debug('Login Successful');
+
         return redirect()->intended('/patient/home');
       }
-       Log::debug('Login GG');
+
       #login failed
       $request->session()->flash('login_failed', ' patient .. login failed, ssn/password wrong!');
 
@@ -68,7 +66,7 @@ class LoginController extends Controller
         //  but in this context we need only to logout doctor part
         // if a user uses browser log as both patient and doctor
         // it may cause some problem
-        return redirect($this->redirectTo);
+        return redirect('/patient/login');
     }
 
 

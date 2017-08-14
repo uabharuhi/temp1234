@@ -13,7 +13,6 @@ use Auth;
 
 class PatientController extends Controller
 {
-   protected $redirectTo = '/patient/login';
 
     public function home(Request $request){
       return View::make('patient.home');

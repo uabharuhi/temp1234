@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class Handler extends ExceptionHandler
 {
@@ -60,6 +61,14 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest(route('login'));
+        #$output = new ConsoleOutput();
+
+
+        if ($request->is('patient/*')) {
+            $request->session()->flash('login_failed', 'please login first');
+            return  redirect('/patient/login');
+        }
+
+        return redirect('/gg');
     }
 }

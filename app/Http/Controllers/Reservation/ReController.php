@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Illuminate\Support\Facades\Auth;
 
 class ReController extends Controller
 {
@@ -36,7 +37,7 @@ class ReController extends Controller
             )
             {
                 return Response::json(
-                    array('success' => false, 'message' => 'the time is occupied'), 500
+                    array('success' => false, 'message' => 'the time is occupied'), 403
                 );
             }
           
@@ -61,6 +62,31 @@ class ReController extends Controller
         return  Response::json(
                     array('success'=>false,'message'=>'some thing wrong when inserting new data'), 500
                 );
+    }
+
+    public function resvs(Request $request){
+
+        $patient = Auth::guard('api_patient')->getUser() ;
+        $id =  $patient ->id ;
+
+        $resvs = Reservation::where( 'patient_id', $id )->get() ;
+
+        return $resvs ;
+
+    }
+
+    public function myinfo(Request $request){
+
+        $patient = Auth::guard('api_patient')->getUser() ;
+        $id =  $patient ->id ;
+        $ssn =  $patient ->ssn;
+        $name =  $patient ->name;
+   
+
+        return Response::json(
+                array('success' => true, 'id' => $id,
+                    'ssn'=>$ssn   , 'name'=> $name ), 200
+        );
     }
 
     public function validator($request){

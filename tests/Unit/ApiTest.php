@@ -41,7 +41,7 @@ class ApiTest extends TestCase
 
     public function testForeignkey(){
         $patient3 = Patient::where('ssn', 'test2')->first() ;
-        $reservation = Reservation::where('patient_id', '3')->first() ;
+        $reservation = Reservation::where('patient_id', '3')->get() ;
         #var_dump( $patient3->patinet() );
         #var_dump( $reservation->patient()->first()->ssn );
         #var_dump( $reservation->patient()->first()->name );

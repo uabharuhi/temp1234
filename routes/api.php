@@ -30,5 +30,9 @@ Route::group([
     );
     Route::get('/patient/home', 'Patient\ApiAuthController@home');
     Route::post('/patient/reserve' , 'Reservation\ReController@reserve');
+
+
+    Route::get('/patient/myinfo', 'Reservation\ReController@myinfo');
+    Route::post('/patient/resvs' , 'Reservation\ReController@resvs');
 });
 

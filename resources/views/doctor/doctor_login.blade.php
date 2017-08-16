@@ -9,9 +9,26 @@
 <link href="" rel="stylesheet">
 </head>
 <body>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<div class="flash-message">
+      @if(Session::has('login_failed'))
+      <p class="">{{ Session::get('login_failed') }} </p>
+      @endif
+</div> <!-- end .flash-message -->
+Doctor Login
 {!! Form::open(["url"=>"/doctor/login", "method"=>"post"] ) !!}
-id number:<br>
-  <input type="text" name="id_num" value="">
+ {{ csrf_field() }}
+ssn:<br>
+  <input type="text" name="ssn" value="{{ old('ssn') }}">
   <br>
 password:<br>
   <input type="password" name="password" value="">

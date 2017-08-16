@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+<<<<<<< HEAD
+Route::post('/patient/login', 'Patient\ApiAuthController@login');
+Route::post('/patient/register','Patient\ApiRegisterController@register');
+
+
+Route::group([
+    'middleware' => 'auth:api_patient',
+], function () {
+    // Authentication Routes...
+    Route::get('/patient/logout', 'Patient\ApiAuthController@logout');
+    Route::post('/patient/home', 'Patient\ApiAuthController@logout');
+    Route::post('/patient/123', 
+        function(){
+            return '123';
+        }
+    );
+    Route::get('/patient/home', 'Patient\ApiAuthController@home');
+    Route::post('/patient/reserve' , 'Reservation\ReController@reserve');
+
+
+    Route::get('/patient/myinfo', 'Reservation\ReController@myinfo');
+    Route::post('/patient/resvs' , 'Reservation\ReController@resvs');
+=======
+Route::post('/patient/login', 'Patient\AuthApiController@login');
+
+Route::group([
+    'middleware' => 'auth:patient_api',
+], function () {
+
+    // Authentication Routes...
+    Route::get('/patient/logout', 'Patient\AuthApiController@logout');
+
+    Route::get('/patient/home', 'Patient\AuthApiController@home');
+
+
+>>>>>>> c47d3614383793c801ca7e9bca4c9c1f75c7162b
+});
+

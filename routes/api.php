@@ -35,4 +35,3 @@ Route::group([
     Route::get('/patient/myinfo', 'Reservation\ReController@myinfo');
     Route::post('/patient/resvs' , 'Reservation\ReController@resvs');
 });
-

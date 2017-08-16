@@ -1,0 +1,85 @@
+<?php
+
+namespace App;
+
+<<<<<<< HEAD
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
+
+class Patient extends Authenticatable  implements AuthenticatableUserContract
+{
+	 protected $table = 'patient';
+	 public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'ssn', 'password','name'
+    ];
+	
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+	
+	public function getJWTIdentifier()
+    {
+        return $this->getKey();  // Eloquent model method
+    }
+	
+	public function getJWTCustomClaims()
+    {
+        return [
+             'patient' => [ 
+                'id' => $this->id
+=======
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
+
+class Patient extends Authenticatable
+                      implements AuthenticatableUserContract
+{
+	protected $table = 'patient';
+	public $timestamps = false;
+      protected $fillable = [
+        'name', 'ssn', 'password',
+    ];
+
+
+    /**
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();  // Eloquent model method
+    }
+
+    /**
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+             'patient' => [
+                'ssn' => $this->ssn,
+                'name'=>$this->name,
+>>>>>>> c47d3614383793c801ca7e9bca4c9c1f75c7162b
+             ]
+        ];
+    }
+
+<<<<<<< HEAD
+    public function reservations(){
+        return $this->hasMany('App\Reservation');
+    }
+=======
+>>>>>>> c47d3614383793c801ca7e9bca4c9c1f75c7162b
+}

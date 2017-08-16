@@ -15,13 +15,34 @@ Route::get('/', function () {
 		return 'index page';
 });
 
-Route::get('/gg', function () {
-		return 'GG , you are faker';
+
+
+Route::get('/gg',function(){
+  return 'gg 3:0';
 });
 
-Route::get('/doctor/login', function () {
-		return View::make('doctor.doctor_login');
-});
+Route::get('/doctor/login','Doctor\LoginController@showLoginForm' );
+Route::post('/doctor/login','Doctor\LoginController@login');
 
-Route::post('/doctor/login','DoctorController@login');
+
+
+Route::group( ['middleware' => 'auth:patient'], function() {
+  Route::get('/patient/logout','Patient\LoginController@logout' );
+  Route::get('/patient/home','Patient\PatientController@home' );
+} );
+
+Route::group( ['middleware' => 'auth:doctor'], function() {
+  Route::get('/doctor/logout','Doctor\LoginController@logout' );
+  Route::get('/doctor/home','Doctor\DoctorController@home' );
+} );
+
+Route::get('/patient/register','Patient\RegisterController@showRegistrationForm' );
+Route::post('/patient/register','Patient\RegisterController@register' );
+
+Route::get('/patient/login','Patient\LoginController@showLoginForm' );
+Route::post('/patient/login','Patient\LoginController@login');
+
+
+
+
 

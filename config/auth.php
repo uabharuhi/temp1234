@@ -18,8 +18,6 @@ return [
         #'passwords' => 'users',
     ],
 
-	
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -47,8 +45,17 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        'doctor'=> [
+            'driver' => 'session',
+            'provider' => 'doctors',
+        ],
 
-		'api_patient' => [
+         'patient'=> [
+            'driver' => 'session',
+            'provider' => 'patients',
+        ],
+
+        'patient_api'=> [
             'driver' => 'jwt',
             'provider' => 'patients',
         ],
@@ -72,19 +79,20 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'doctors' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Doctor::class,
         ],
+
         'patients' => [
             'driver' => 'eloquent',
             'model' => App\Patient::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'users' => [
+             'driver' => 'eloquent',
+             'model'=> App\User::class
+         ],
     ],
 
     /*
@@ -101,7 +109,7 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
+    /*
     'passwords' => [
         'users' => [
             'provider' => 'users',
@@ -109,5 +117,6 @@ return [
             'expire' => 60,
         ],
     ],
+		*/
 
 ];

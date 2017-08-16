@@ -33,7 +33,7 @@ class LoginController extends Controller
         return redirect()->intended('/doctor/home');
       }
       #login failed
-      $request->session()->flash('login_failed', 'login failed, ssn/password wrong!');
+      $request->session()->flash('login_failed', 'doctor login failed, ssn/password wrong!');
 
       return redirect()->back()->withInput($request->only('ssn'));
 

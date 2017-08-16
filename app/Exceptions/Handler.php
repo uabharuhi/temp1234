@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +47,8 @@ class Handler extends ExceptionHandler
     {
         $error = $this->convertExceptionToResponse($exception);
 
+
+
         if($request->expectsJson()){
                 return response()->json(
                     ['error'=> $exception->getMessage()], $error->getStatusCode()
@@ -64,6 +67,8 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        #$output = new ConsoleOutput();
+        #$output->writeln('gan');
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
